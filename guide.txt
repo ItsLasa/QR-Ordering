@@ -1,0 +1,19 @@
+Build a QR-code ordering web app.
+
+USERS:
+- Customer: scans a table QR, browses the menu, orders, tracks status.
+  No account needed.
+- Owner/Staff: manages menu, tables and incoming orders.
+
+MVP FEATURES:
+- Owner sign-up and login, shop profile (name,  logo, currency)
+- Menu: categories, items (name, price, photo, description, available
+  toggle), options/extras
+- Tables with unique unguessable QR tokens, plus printable QR sheet (PDF)
+- Public menu at /s/[slug]?t=[token]
+- Cart and place order (with customer name, optional note)
+- Live kitchen dashboard (new order sound, status buttons:
+  New > Preparing > Ready > Completed)
+- Customer order status page (live updates)
+- Sold-out toggle per item
+- Pay at counter (cash). Online payment comes later.

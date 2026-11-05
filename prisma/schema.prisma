@@ -1,0 +1,127 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  restaurant   Restaurant?
+}
+
+model Restaurant {
+  id          String            @id @default(uuid())
+  userId      String            @unique
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  slug        String            @unique
+  logoUrl     String?
+  currency    String            @default("$")
+  address     String?
+  phone       String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  categories  Category[]
+  menuItems   MenuItem[]
+  tables      RestaurantTable[]
+  orders      Order[]
+}
+
+model Category {
+  id           String      @id @default(uuid())
+  restaurantId String
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  name         String
+  sortOrder    Int         @default(0)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  menuItems    MenuItem[]
+}
+
+model MenuItem {
+  id           String        @id @default(uuid())
+  restaurantId String
+  restaurant   Restaurant    @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  categoryId   String
+  category     Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  name         String
+  description  String?
+  price        Float
+  imageUrl     String?
+  isAvailable  Boolean       @default(true)
+  sortOrder    Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  optionGroups OptionGroup[]
+  orderItems   OrderItem[]
+}
+
+model OptionGroup {
+  id            String         @id @default(uuid())
+  menuItemId    String
+  menuItem      MenuItem       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  name          String
+  isRequired    Boolean        @default(false)
+  allowMultiple Boolean        @default(false)
+  minSelect     Int            @default(0)
+  maxSelect     Int            @default(1)
+  choices       OptionChoice[]
+}
+
+model OptionChoice {
+  id            String      @id @default(uuid())
+  optionGroupId String
+  optionGroup   OptionGroup @relation(fields: [optionGroupId], references: [id], onDelete: Cascade)
+  name          String
+  price         Float       @default(0)
+}
+
+model RestaurantTable {
+  id           String      @id @default(uuid())
+  restaurantId String
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  name         String
+  token        String      @unique
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  orders       Order[]
+}
+
+model Order {
+  id            String          @id @default(uuid())
+  restaurantId  String
+  restaurant    Restaurant      @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  tableId       String
+  table         RestaurantTable @relation(fields: [tableId], references: [id], onDelete: Cascade)
+  orderNumber   Int
+  customerName  String
+  customerNote  String?
+  status        String          @default("NEW") // NEW, PREPARING, READY, COMPLETED, CANCELLED
+  totalAmount   Float
+  paymentStatus String          @default("PENDING_COUNTER") // PENDING_COUNTER, PAID
+  paymentMethod String          @default("CASH_COUNTER")
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  items         OrderItem[]
+}
+
+model OrderItem {
+  id              String    @id @default(uuid())
+  orderId         String
+  order           Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItemId      String?
+  menuItem        MenuItem? @relation(fields: [menuItemId], references: [id], onDelete: SetNull)
+  itemName        String
+  unitPrice       Float
+  quantity        Int
+  subtotal        Float
+  selectedOptions String? // JSON string: [{ groupName: string, choiceName: string, price: number }]
+  createdAt       DateTime  @default(now())
+}

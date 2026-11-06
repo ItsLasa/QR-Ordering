@@ -9,8 +9,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'sans-serif'],
+        sans: ['var(--font-opensans)', 'Open Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        heading: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
+        title: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
+        serif: ['var(--font-montserrat)', 'Montserrat', 'sans-serif'],
       },
       colors: {
         background: "var(--background)",

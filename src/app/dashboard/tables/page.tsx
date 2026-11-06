@@ -91,34 +91,35 @@ export default function TablesManagementPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-stone-900">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-5 rounded-xl border border-stone-200/90 shadow-subtle">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
-            <TableProperties className="w-6 h-6 text-orange-500" />
-            Tables & QR Tokens
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Each table receives a cryptographically secure, unguessable token preventing spoofing.
+          <div className="flex items-center gap-2">
+            <h1 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">
+              Tables & QR Tokens
+            </h1>
+          </div>
+          <p className="text-xs text-stone-500 mt-0.5">
+            Every dining station receives a cryptographic token to prevent order spoofing.
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           <Link
             href="/dashboard/tables/print"
-            className="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-800 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center gap-2 border border-slate-200 shadow-sm"
+            className="px-3 py-1.5 text-xs font-medium text-stone-700 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg transition flex items-center gap-1.5"
           >
-            <Printer className="w-4 h-4 text-slate-600" />
-            Print QR Sheet (PDF)
+            <Printer className="w-3.5 h-3.5 text-stone-500" />
+            <span>Print Tent Cards (PDF)</span>
           </Link>
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-orange-500 hover:bg-orange-600 rounded-xl shadow-sm shadow-orange-500/20 transition flex items-center gap-1.5"
+            className="px-3.5 py-1.5 text-xs font-medium text-white bg-stone-900 hover:bg-stone-800 rounded-lg shadow-subtle transition flex items-center gap-1.5"
           >
-            <Plus className="w-4 h-4" />
-            Add Table
+            <Plus className="w-3.5 h-3.5" />
+            <span>Add Table</span>
           </button>
         </div>
       </div>
@@ -126,88 +127,88 @@ export default function TablesManagementPage() {
       {/* Tables Grid */}
       {loading ? (
         <div className="py-20 text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-orange-500 mx-auto mb-3" />
-          <p className="text-sm text-slate-500">Loading tables & generating QR codes...</p>
+          <Loader2 className="w-6 h-6 animate-spin text-stone-400 mx-auto mb-2" />
+          <p className="text-xs text-stone-500 uppercase tracking-widest font-medium">Loading tables & QR codes...</p>
         </div>
       ) : tables.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200/80 p-12 text-center">
-          <div className="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
-            <QrCode className="w-7 h-7" />
+        <div className="bg-white rounded-xl border border-stone-200 p-12 text-center">
+          <div className="w-12 h-12 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center mx-auto mb-3">
+            <QrCode className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-800 text-base">No dining tables yet</h3>
-          <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-            Click &quot;Add Table&quot; to generate your first table and printable QR code.
+          <p className="font-serif text-base text-stone-800">No dining tables configured</p>
+          <p className="text-xs text-stone-500 mt-1 max-w-sm mx-auto">
+            Click &quot;Add Table&quot; above to create tabletop ordering stations with instant QR tokens.
           </p>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {tables.map((table) => (
             <div
               key={table.id}
-              className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-5 flex flex-col justify-between hover:shadow-md transition"
+              className="bg-white rounded-xl border border-stone-200/90 shadow-subtle p-5 flex flex-col justify-between hover:border-stone-300 transition"
             >
               <div>
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="font-extrabold text-lg text-slate-900 tracking-tight">
+                    <h3 className="font-serif font-bold text-lg text-stone-900 tracking-tight">
                       {table.name}
                     </h3>
-                    <span className="text-[11px] font-mono text-slate-400 block mt-0.5">
+                    <span className="text-[11px] font-mono text-stone-400 block mt-0.5">
                       Token: {table.token}
                     </span>
                   </div>
                   <button
                     onClick={() => handleDeleteTable(table.id, table.name)}
-                    className="p-1.5 text-slate-300 hover:text-rose-600 rounded-lg transition"
+                    className="p-1.5 text-stone-300 hover:text-rose-600 rounded transition"
                     title="Delete Table"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
 
-                {/* QR Code Container */}
-                <div className="my-4 bg-slate-50 rounded-xl p-3 border border-slate-100 flex flex-col items-center justify-center">
+                {/* QR Code Canvas */}
+                <div className="my-4 bg-stone-50 rounded-lg p-3 border border-stone-200 flex flex-col items-center justify-center">
                   {table.qrCodeDataUrl ? (
                     <img
                       src={table.qrCodeDataUrl}
                       alt={`QR code for ${table.name}`}
-                      className="w-44 h-44 object-contain rounded-lg shadow-inner bg-white p-2"
+                      className="w-40 h-40 object-contain rounded bg-white p-2 border border-stone-200/80 shadow-subtle"
                     />
                   ) : (
-                    <div className="w-44 h-44 flex items-center justify-center text-slate-400">
-                      Generating QR...
+                    <div className="w-40 h-40 flex items-center justify-center text-stone-400 text-xs">
+                      Generating...
                     </div>
                   )}
-                  <span className="text-[11px] text-slate-500 font-medium mt-2">
-                    Scan with smartphone camera
+                  <span className="text-[11px] text-stone-500 font-medium mt-2">
+                    Directs to table order menu
                   </span>
                 </div>
               </div>
 
-              {/* Table card bottom actions */}
-              <div className="space-y-2 pt-2 border-t border-slate-100">
-                <div className="flex items-center gap-2">
+              {/* Action buttons */}
+              <div className="space-y-2 pt-2 border-t border-stone-100">
+                <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => handleCopyLink(table.publicUrl, table.id)}
-                    className="flex-1 py-2 px-3 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center justify-center gap-1.5"
+                    className="flex-1 py-1.5 px-2.5 text-xs font-medium text-stone-700 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg transition flex items-center justify-center gap-1.5"
                   >
                     {copiedId === table.id ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-emerald-600" /> Copied!
+                        <Check className="w-3.5 h-3.5 text-emerald-700" /> Copied
                       </>
                     ) : (
                       <>
-                        <Copy className="w-3.5 h-3.5 text-slate-500" /> Copy Link
+                        <Copy className="w-3.5 h-3.5 text-stone-400" /> Copy Link
                       </>
                     )}
                   </button>
 
                   <button
                     onClick={() => handleDownloadQR(table.qrCodeDataUrl, table.name)}
-                    className="py-2 px-3 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition flex items-center justify-center gap-1.5"
+                    className="py-1.5 px-2.5 text-xs font-medium text-stone-700 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg transition flex items-center justify-center gap-1"
                     title="Download PNG QR Code"
                   >
-                    <Download className="w-3.5 h-3.5 text-slate-500" />
+                    <Download className="w-3.5 h-3.5 text-stone-400" />
                     PNG
                   </button>
 
@@ -215,10 +216,10 @@ export default function TablesManagementPage() {
                     href={table.publicUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 text-orange-600 bg-orange-50 hover:bg-orange-100 rounded-xl transition border border-orange-200"
+                    className="p-1.5 text-stone-600 hover:text-stone-900 bg-stone-50 hover:bg-stone-100 rounded-lg transition border border-stone-200"
                     title="Test Customer Table Menu"
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
@@ -229,23 +230,23 @@ export default function TablesManagementPage() {
 
       {/* Add Table Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200">
-            <h3 className="font-bold text-lg text-slate-900 mb-1">Add New Table</h3>
-            <p className="text-xs text-slate-500 mb-4">
-              A secure unguessable QR token will be generated automatically.
+        <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl max-w-sm w-full p-6 shadow-float border border-stone-200">
+            <h3 className="font-serif font-bold text-lg text-stone-900 mb-1">Add Table</h3>
+            <p className="text-xs text-stone-500 mb-4">
+              A cryptographic QR token will be generated automatically.
             </p>
 
             <form onSubmit={handleCreateTable} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Table Name</label>
+                <label className="block text-xs font-medium text-stone-700 mb-1">Table Name</label>
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Table 5, Patio 2, Bar 1"
+                  placeholder="e.g. Table 5, Patio 2, Booth A"
                   value={newTableName}
                   onChange={(e) => setNewTableName(e.target.value)}
-                  className="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full px-3 py-2 border border-stone-200 rounded-lg text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-stone-400"
                 />
               </div>
 
@@ -253,17 +254,17 @@ export default function TablesManagementPage() {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl"
+                  className="px-3.5 py-1.5 text-xs font-medium text-stone-600 hover:bg-stone-100 rounded-lg"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={creating}
-                  className="px-4 py-2 text-xs font-semibold text-white bg-orange-500 hover:bg-orange-600 rounded-xl shadow-sm flex items-center gap-1.5"
+                  className="px-4 py-1.5 text-xs font-medium text-white bg-stone-900 hover:bg-stone-800 rounded-lg shadow-subtle flex items-center gap-1.5"
                 >
                   {creating ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Plus className="w-3.5 h-3.5" />}
-                  Generate Table
+                  Create Table
                 </button>
               </div>
             </form>

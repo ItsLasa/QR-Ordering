@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { UtensilsCrossed, ChefHat, BookOpen, QrCode, Settings, ExternalLink, LogOut } from 'lucide-react';
+import { ChefHat, BookOpen, QrCode, Settings, ExternalLink, LogOut } from 'lucide-react';
 import { Restaurant } from '@/types';
 
 interface DashboardNavProps {
@@ -32,20 +32,20 @@ export function DashboardNav({ restaurant, userEmail }: DashboardNavProps) {
   ];
 
   return (
-    <header className="no-print bg-white border-b border-slate-200 sticky top-0 z-40">
+    <header className="no-print bg-white border-b border-stone-200/80 sticky top-0 z-40 shadow-subtle">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Brand & Store */}
           <div className="flex items-center gap-6">
             <Link href="/dashboard/kitchen" className="flex items-center gap-2.5">
-              <div className="w-9 h-9 rounded-lg bg-orange-500 text-white flex items-center justify-center font-bold shadow-sm shadow-orange-500/20">
-                <UtensilsCrossed className="w-5 h-5" />
+              <div className="w-8 h-8 rounded-lg bg-stone-900 text-stone-100 flex items-center justify-center font-serif text-base font-bold">
+                {restaurant.name.charAt(0)}
               </div>
               <div>
-                <span className="font-bold text-slate-900 tracking-tight block text-base leading-tight">
+                <span className="font-serif font-bold text-stone-900 tracking-tight block text-sm sm:text-base leading-tight">
                   {restaurant.name}
                 </span>
-                <span className="text-xs text-slate-500">BistroQR Dashboard</span>
+                <span className="text-[10px] uppercase tracking-wider text-stone-400 font-medium">Operations</span>
               </div>
             </Link>
 
@@ -58,13 +58,13 @@ export function DashboardNav({ restaurant, userEmail }: DashboardNavProps) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition ${
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                       isActive
-                        ? 'bg-orange-50 text-orange-600'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                        ? 'bg-stone-100 text-stone-900'
+                        : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5" />
                     {item.label}
                   </Link>
                 );
@@ -73,20 +73,20 @@ export function DashboardNav({ restaurant, userEmail }: DashboardNavProps) {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5">
             <Link
               href={`/s/${restaurant.slug}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-stone-700 bg-stone-50 hover:bg-stone-100 border border-stone-200 rounded-lg transition"
             >
               <span>View Customer Menu</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+              <ExternalLink className="w-3 h-3 text-stone-400" />
             </Link>
 
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-lg transition border border-rose-200/60"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition border border-stone-200"
               title={`Logged in as ${userEmail}`}
             >
               <LogOut className="w-3.5 h-3.5" />
@@ -96,7 +96,7 @@ export function DashboardNav({ restaurant, userEmail }: DashboardNavProps) {
         </div>
 
         {/* Mobile Navigation bar */}
-        <div className="md:hidden flex items-center justify-around border-t border-slate-100 py-2">
+        <div className="md:hidden flex items-center justify-around border-t border-stone-100 py-2">
           {navLinks.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || (item.href === '/dashboard/kitchen' && pathname === '/dashboard');
@@ -104,8 +104,8 @@ export function DashboardNav({ restaurant, userEmail }: DashboardNavProps) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg text-xs font-medium ${
-                  isActive ? 'text-orange-600' : 'text-slate-500'
+                className={`flex flex-col items-center gap-1 py-1 px-3 rounded-lg text-[11px] font-medium ${
+                  isActive ? 'text-stone-900 font-semibold' : 'text-stone-500'
                 }`}
               >
                 <Icon className="w-4 h-4" />

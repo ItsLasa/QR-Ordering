@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { UtensilsCrossed, ArrowRight, Loader2, KeyRound, Mail, Store, AlertCircle } from 'lucide-react';
+import { ArrowRight, Loader2, KeyRound, Mail, Store, AlertCircle } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -41,43 +41,43 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-50/50 via-white to-slate-50 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/" className="flex items-center justify-center gap-2.5">
-          <div className="w-11 h-11 rounded-xl bg-orange-500 text-white flex items-center justify-center shadow-md shadow-orange-500/20">
-            <UtensilsCrossed className="w-6 h-6" />
+          <div className="w-10 h-10 rounded-lg bg-stone-900 text-stone-100 flex items-center justify-center font-serif text-xl font-bold">
+            B
           </div>
-          <span className="font-extrabold text-2xl tracking-tight text-slate-900">
-            Bistro<span className="text-orange-600">QR</span>
+          <span className="font-serif font-bold text-2xl tracking-tight text-stone-900">
+            BistroQR
           </span>
         </Link>
-        <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-slate-900">
-          Set up your restaurant in seconds
+        <h2 className="mt-5 text-center font-serif text-2xl font-bold tracking-tight text-stone-900">
+          Create Restaurant Account
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-600">
-          Already have an account?{' '}
-          <Link href="/login" className="font-semibold text-orange-600 hover:text-orange-500">
+        <p className="mt-2 text-center text-xs text-stone-500">
+          Already registered?{' '}
+          <Link href="/login" className="font-medium text-stone-900 underline underline-offset-4 hover:text-stone-700">
             Sign in
           </Link>
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-6 shadow-xl shadow-slate-200/50 rounded-2xl border border-slate-200/80 sm:px-10">
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-6 sm:px-10 rounded-xl border border-stone-200/90 shadow-card">
           {error && (
-            <div className="mb-6 rounded-xl bg-rose-50 border border-rose-200 p-4 text-sm text-rose-700 flex items-start gap-2.5">
-              <AlertCircle className="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" />
+            <div className="mb-5 rounded-lg bg-rose-50 border border-rose-200 p-3.5 text-xs text-rose-800 flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
           )}
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-sm font-semibold text-slate-800">
+              <label className="block text-xs font-medium text-stone-700 mb-1">
                 Restaurant / Cafe Name
               </label>
-              <div className="mt-1.5 relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-400">
                   <Store className="w-4 h-4" />
                 </div>
                 <input
@@ -85,26 +85,26 @@ export default function RegisterPage() {
                   required
                   value={restaurantName}
                   onChange={(e) => setRestaurantName(e.target.value)}
-                  className="block w-full pl-10 pr-3.5 py-2.5 border border-slate-300 rounded-xl shadow-sm text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                  placeholder="e.g. Bella Italia Bistro"
+                  className="block w-full pl-9 pr-3.5 py-2.5 border border-stone-200 rounded-lg text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-stone-400 focus:ring-1 focus:ring-stone-400 transition"
+                  placeholder="e.g. The Heritage Cafe"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-800">
-                Currency Symbol
+              <label className="block text-xs font-medium text-stone-700 mb-1">
+                Display Currency
               </label>
-              <div className="mt-1.5 flex gap-2">
+              <div className="flex gap-1.5">
                 {['$', '€', '£', '₹', '฿', '¥'].map((cur) => (
                   <button
                     key={cur}
                     type="button"
                     onClick={() => setCurrency(cur)}
-                    className={`flex-1 py-2 rounded-lg font-semibold text-sm border transition ${
+                    className={`flex-1 py-1.5 rounded-lg font-medium text-xs border transition ${
                       currency === cur
-                        ? 'bg-orange-500 text-white border-orange-500 shadow-sm'
-                        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                        ? 'bg-stone-900 text-white border-stone-900 shadow-subtle'
+                        : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
                     }`}
                   >
                     {cur}
@@ -114,11 +114,11 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-800">
+              <label className="block text-xs font-medium text-stone-700 mb-1">
                 Owner Email
               </label>
-              <div className="mt-1.5 relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-400">
                   <Mail className="w-4 h-4" />
                 </div>
                 <input
@@ -126,18 +126,18 @@ export default function RegisterPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3.5 py-2.5 border border-slate-300 rounded-xl shadow-sm text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                  placeholder="owner@yourrestaurant.com"
+                  className="block w-full pl-9 pr-3.5 py-2.5 border border-stone-200 rounded-lg text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-stone-400 focus:ring-1 focus:ring-stone-400 transition"
+                  placeholder="owner@restaurant.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-800">
+              <label className="block text-xs font-medium text-stone-700 mb-1">
                 Password
               </label>
-              <div className="mt-1.5 relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-400">
                   <KeyRound className="w-4 h-4" />
                 </div>
                 <input
@@ -146,8 +146,8 @@ export default function RegisterPage() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-3.5 py-2.5 border border-slate-300 rounded-xl shadow-sm text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                  placeholder="Min 6 characters"
+                  className="block w-full pl-9 pr-3.5 py-2.5 border border-stone-200 rounded-lg text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-stone-400 focus:ring-1 focus:ring-stone-400 transition"
+                  placeholder="Minimum 6 characters"
                 />
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-md shadow-orange-500/20 text-sm font-semibold text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 disabled:opacity-50 transition"
+                className="w-full flex justify-center items-center gap-2 py-2.5 px-4 rounded-lg text-xs sm:text-sm font-medium text-white bg-stone-900 hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-stone-900 focus:ring-offset-2 disabled:opacity-50 transition shadow-subtle"
               >
                 {loading ? (
                   <>
@@ -165,7 +165,7 @@ export default function RegisterPage() {
                   </>
                 ) : (
                   <>
-                    Launch Restaurant & Tables <ArrowRight className="w-4 h-4" />
+                    Create Restaurant & Open Tables <ArrowRight className="w-3.5 h-3.5" />
                   </>
                 )}
               </button>

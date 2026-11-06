@@ -14,7 +14,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-[#FAF9F6] text-stone-900 flex flex-col">
       <DashboardNav
         restaurant={user.restaurant as any}
         userEmail={user.email}

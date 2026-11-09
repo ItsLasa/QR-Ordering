@@ -1,7 +1,6 @@
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -23,9 +22,9 @@ model Restaurant {
   user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
   name        String
   slug        String            @unique
-  logoUrl     String?
+  logoUrl     String?           @db.Text
   currency    String            @default("$")
-  address     String?
+  address     String?           @db.Text
   phone       String?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
@@ -53,9 +52,9 @@ model MenuItem {
   categoryId   String
   category     Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   name         String
-  description  String?
+  description  String?       @db.Text
   price        Float
-  imageUrl     String?
+  imageUrl     String?       @db.Text
   isAvailable  Boolean       @default(true)
   sortOrder    Int           @default(0)
   createdAt    DateTime      @default(now())
@@ -103,7 +102,7 @@ model Order {
   table         RestaurantTable @relation(fields: [tableId], references: [id], onDelete: Cascade)
   orderNumber   Int
   customerName  String
-  customerNote  String?
+  customerNote  String?         @db.Text
   status        String          @default("NEW") // NEW, PREPARING, READY, COMPLETED, CANCELLED
   totalAmount   Float
   paymentStatus String          @default("PENDING_COUNTER") // PENDING_COUNTER, PAID
@@ -123,6 +122,6 @@ model OrderItem {
   unitPrice       Float
   quantity        Int
   subtotal        Float
-  selectedOptions String? // JSON string: [{ groupName: string, choiceName: string, price: number }]
+  selectedOptions String?   @db.Text // JSON string: [{ groupName: string, choiceName: string, price: number }]
   createdAt       DateTime  @default(now())
 }

@@ -123,7 +123,7 @@ export default function HomePage() {
       <footer className="border-t border-stone-200/80 bg-white py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
           <p>© {new Date().getFullYear()} BistroQR. Contactless Restaurant Technology.</p>
-          <p>Cash at counter • Real-time SSE • Supabase PostgreSQL</p>
+          <p>Cash at counter • Real-time SSE • MySQL</p>
         </div>
       </footer>
     </div>
